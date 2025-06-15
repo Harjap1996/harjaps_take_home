@@ -11,11 +11,19 @@ import {
 
 export default function TodoList() {
     const todos = useAppSelector((state) => state.todos);
+    const filter = useAppSelector((state) => state.filter);
     const dispatch = useAppDispatch();
+
+    const visibleTodos = todos.filter((todo: Todo) => {
+        if (filter === "all") return true;
+        if (filter === "active") return !todo.completed;
+        if (filter === "completed") return todo.completed;
+        return true;
+    });
 
     return (
         <ul className="todo-list">
-            {todos.map((todo: Todo) => (
+            {visibleTodos.map((todo: Todo) => (
                 <TodoItem
                     key={todo.id}
                     todo={todo}
