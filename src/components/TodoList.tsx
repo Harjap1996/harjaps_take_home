@@ -1,44 +1,31 @@
 import TodoItem from "./TodoItem";
 import { Todo } from "src/models/todo";
-import React, { useCallback } from "react";
-import { useAppSelector } from "src/hooks/useAppHooks";
+import React from "react";
+import { useAppSelector, useAppDispatch } from "src/hooks/useAppHooks";
+import {
+    toggleTodo,
+    deleteTodo,
+    startEditTodo,
+    setTitleTodo,
+} from "src/redux/slices/todoSlice";
 
-type Props = {
-    todos: Todo[];
-    onEdit: (id: string) => void;
-    onDelete: (id: string) => void;
-    onToggleComplete: (id: string) => void;
-    onSetTitle: (id: string, title: string) => void;
-};
-
-export default function TodoList({
-    onEdit,
-    onDelete,
-    onToggleComplete,
-    onSetTitle,
-}: Props) {
+export default function TodoList() {
     const todos = useAppSelector((state) => state.todos);
-    console.log(todos);
-
-    const Item = useCallback(
-        ({ todo }: { todo: Todo }) => {
-            return (
-                <TodoItem
-                    todo={todo}
-                    onEdit={() => onEdit(todo.id)}
-                    onToggleComplete={() => onToggleComplete(todo.id)}
-                    onDelete={() => onDelete(todo.id)}
-                    onSetTitle={(title) => onSetTitle(todo.id, title)}
-                />
-            );
-        },
-        [onEdit, onDelete, onToggleComplete, onSetTitle]
-    );
+    const dispatch = useAppDispatch();
 
     return (
         <ul className="todo-list">
-            {todos.map((todo) => (
-                <Item key={todo.id} todo={todo} />
+            {todos.map((todo: Todo) => (
+                <TodoItem
+                    key={todo.id}
+                    todo={todo}
+                    onToggleComplete={() => dispatch(toggleTodo(todo.id))}
+                    onDelete={() => dispatch(deleteTodo(todo.id))}
+                    onEdit={() => dispatch(startEditTodo(todo.id))}
+                    onSetTitle={(title) =>
+                        dispatch(setTitleTodo({ id: todo.id, title }))
+                    }
+                />
             ))}
         </ul>
     );
