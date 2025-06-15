@@ -1,16 +1,22 @@
 import { useEffect, useRef } from "react";
+import { v4 as uuid } from "uuid";
+import { useAppDispatch } from "src/hooks/useAppHooks";
+import { addTodo } from "src/redux/slices/todoSlice";
 
-type Props = {
-    onNewTodo: (title: string) => void;
-};
-
-export default function NewTodoInput({ onNewTodo }: Props) {
+export default function NewTodoInput() {
+    const dispatch = useAppDispatch();
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-
         if (e.key === "Enter" && inputRef.current != null) {
-            onNewTodo(inputRef.current.value);
+            dispatch(
+                addTodo({
+                    id: uuid(),
+                    title: inputRef.current.value.trim(),
+                    completed: false,
+                    editing: false,
+                })
+            );
             inputRef.current.value = "";
         }
     };
