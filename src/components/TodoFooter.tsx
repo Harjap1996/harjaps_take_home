@@ -1,20 +1,17 @@
 import Link from "next/link";
 import clsx from "clsx";
 import { Filter } from "src/models/filter";
+import { useAppSelector, useAppDispatch } from "src/hooks/useAppHooks";
+import { clearCompleted } from "src/redux/slices/todoSlice";
+import { setFilter } from "src/redux/slices/filterSlice";
 
-type Props = {
-    filter: Filter;
-    numActiveTodos: number;
-    numTodos: number;
-    onClearCompleted: () => void;
-};
+export default function TodoFooter() {
+    const todos = useAppSelector((state) => state.todos);
+    const filter = useAppSelector((state) => state.filter);
+    const dispatch = useAppDispatch();
 
-export default function TodoFooter({
-    filter,
-    numActiveTodos,
-    numTodos,
-    onClearCompleted,
-}: Props) {
+    const numTodos = todos.length;
+    const numActiveTodos = todos.filter((t) => !t.completed).length;
     if (numTodos == 0) {
         return null;
     }
@@ -24,39 +21,25 @@ export default function TodoFooter({
             <span className="todo-count">
                 {numActiveTodos} item{numActiveTodos !== 1 && "s"} left
             </span>
+
             <ul className="filters">
-                <li>
-                    <Link href="/#/">
+                {(["all", "active", "completed"] as Filter[]).map((f) => (
+                    <li key={f}>
                         <a
-                            className={clsx({
-                                selected: filter == "all",
-                            })}
+                            onClick={() => dispatch(setFilter(f))}
+                            className={clsx({ selected: filter === f })}
                         >
-                            All
+                            {f.charAt(0).toUpperCase() + f.slice(1)}
                         </a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/#/active">
-                        <a className={clsx({ selected: filter === "active" })}>
-                            Active
-                        </a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/#/completed">
-                        <a
-                            className={clsx({
-                                selected: filter === "completed",
-                            })}
-                        >
-                            Completed
-                        </a>
-                    </Link>
-                </li>
+                    </li>
+                ))}
             </ul>
+
             {numActiveTodos < numTodos && (
-                <button className="clear-completed" onClick={onClearCompleted}>
+                <button
+                    className="clear-completed"
+                    onClick={() => dispatch(clearCompleted())}
+                >
                     Clear completed
                 </button>
             )}
