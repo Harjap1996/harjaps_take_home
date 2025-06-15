@@ -19,16 +19,7 @@ export default function Home() {
                 </header>
 
                 <section className="main">
-                    <TodoMarkAll
-                        numCompletedTodos={0}
-                        numTodos={0}
-                        onMarkAllActive={() =>
-                            console.log("onMarkAllActive was called")
-                        }
-                        onMarkAllCompleted={() =>
-                            console.log("onMarkAllCompleted was called")
-                        }
-                    />
+                    <TodoMarkAll />
                     <TodoList />
                 </section>
 
