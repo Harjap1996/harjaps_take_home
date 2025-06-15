@@ -1,22 +1,25 @@
 import TodoItem from "./TodoItem";
 import { Todo } from "src/models/todo";
 import React, { useCallback } from "react";
+import { useAppSelector } from "src/hooks/useAppHooks";
 
 type Props = {
     todos: Todo[];
-    onEdit: (id: number) => void;
-    onDelete: (id: number) => void;
-    onToggleComplete: (id: number) => void;
-    onSetTitle: (id: number, title: string) => void;
+    onEdit: (id: string) => void;
+    onDelete: (id: string) => void;
+    onToggleComplete: (id: string) => void;
+    onSetTitle: (id: string, title: string) => void;
 };
 
 export default function TodoList({
-    todos,
     onEdit,
     onDelete,
     onToggleComplete,
     onSetTitle,
 }: Props) {
+    const todos = useAppSelector((state) => state.todos);
+    console.log(todos);
+
     const Item = useCallback(
         ({ todo }: { todo: Todo }) => {
             return (
