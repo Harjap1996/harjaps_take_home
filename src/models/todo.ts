@@ -3,5 +3,4 @@ export interface Todo {
     title: string;
     editing: boolean;
     completed: boolean;
-    text: string;
 }
