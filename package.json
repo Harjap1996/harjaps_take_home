@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "clsx": "^1.1.1",
     "joi": "^17.2.1",
     "next": "^12",
