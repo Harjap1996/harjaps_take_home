@@ -35,6 +35,16 @@ const todoSlice = createSlice({
             }
         },
         clearCompleted: (state) => state.filter((item) => !item.completed),
+        markAllCompleted: (state) => {
+            state.forEach((t) => {
+                t.completed = true;
+            });
+        },
+        markAllActive: (state) => {
+            state.forEach((t) => {
+                t.completed = false;
+            });
+        },
     },
 });
 
@@ -45,5 +55,7 @@ export const {
     startEdit: startEditTodo,
     setTitle: setTitleTodo,
     clearCompleted,
+    markAllCompleted,
+    markAllActive,
 } = todoSlice.actions;
 export const todoReducer = todoSlice.reducer;
