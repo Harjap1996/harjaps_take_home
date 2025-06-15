@@ -14,27 +14,27 @@ const todoSlice = createSlice({
             state.push(action.payload);
         },
         toggle: (state, action: PayloadAction<string>) => {
-            const todo = state.find((t) => t.id === action.payload);
+            const todo = state.find((item) => item.id === action.payload);
             if (todo) {
                 todo.completed = !todo.completed;
             }
         },
         remove: (state, action: PayloadAction<string>) =>
-            state.filter((t) => t.id !== action.payload),
+            state.filter((item) => item.id !== action.payload),
         startEdit: (state, action: PayloadAction<string>) => {
-            const todo = state.find((t) => t.id === action.payload);
+            const todo = state.find((item) => item.id === action.payload);
             if (todo) {
                 todo.editing = true;
             }
         },
         setTitle: (state, action: PayloadAction<SetTitlePayload>) => {
-            const todo = state.find((t) => t.id === action.payload.id);
+            const todo = state.find((item) => item.id === action.payload.id);
             if (todo) {
                 todo.title = action.payload.title;
                 todo.editing = false;
             }
         },
-        clearCompleted: (state) => state.filter((t) => !t.completed),
+        clearCompleted: (state) => state.filter((item) => !item.completed),
     },
 });
 
