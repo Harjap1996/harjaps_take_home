@@ -29,13 +29,7 @@ export default function Home() {
                             console.log("onMarkAllCompleted was called")
                         }
                     />
-                    <TodoList
-                        todos={[]}
-                        onEdit={() => console.log()}
-                        onDelete={() => console.log()}
-                        onToggleComplete={() => console.log()}
-                        onSetTitle={() => console.log()}
-                    />
+                    <TodoList />
                 </section>
 
                 <TodoFooter
