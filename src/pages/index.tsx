@@ -23,12 +23,7 @@ export default function Home() {
                     <TodoList />
                 </section>
 
-                <TodoFooter
-                    filter="all"
-                    numActiveTodos={0}
-                    numTodos={0}
-                    onClearCompleted={() => {}}
-                />
+                <TodoFooter />
             </section>
 
             <footer className="info">
