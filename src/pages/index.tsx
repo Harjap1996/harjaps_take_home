@@ -15,11 +15,7 @@ export default function Home() {
             <section className="todoapp">
                 <header className="header">
                     <h1>todos</h1>
-                    <NewTodoInput
-                        onNewTodo={(_) => {
-                            console.log("onNewTodo was called");
-                        }}
-                    />
+                    <NewTodoInput />
                 </header>
 
                 <section className="main">
