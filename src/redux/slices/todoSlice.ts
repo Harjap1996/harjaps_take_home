@@ -1,9 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Todo } from "src/models/todo";
+import { Todo, Priority } from "src/models/todo";
 
 interface SetTitlePayload {
     id: string;
     title: string;
+}
+
+interface UpdatePriorityPayload {
+    id: string;
+    priority: Priority;
 }
 
 const todoSlice = createSlice({
@@ -45,6 +50,13 @@ const todoSlice = createSlice({
                 t.completed = false;
             });
         },
+        updatePriority: (
+            state,
+            action: PayloadAction<UpdatePriorityPayload>
+        ) => {
+            const todo = state.find((item) => item.id === action.payload.id);
+            if (todo) todo.priority = action.payload.priority;
+        },
     },
 });
 
@@ -57,5 +69,6 @@ export const {
     clearCompleted,
     markAllCompleted,
     markAllActive,
+    updatePriority,
 } = todoSlice.actions;
 export const todoReducer = todoSlice.reducer;
