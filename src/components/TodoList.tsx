@@ -1,5 +1,5 @@
 import TodoItem from "./TodoItem";
-import { Todo } from "src/models/todo";
+import { Todo, Priority } from "src/models/todo";
 import React from "react";
 import { useAppSelector, useAppDispatch } from "src/hooks/useAppHooks";
 import {
@@ -21,9 +21,16 @@ export default function TodoList() {
         return true;
     });
 
+    const priorityOrder: Priority[] = ["high", "medium", "low"];
+    const sorted = [...visibleTodos].sort(
+        (a, b) =>
+            priorityOrder.indexOf(a.priority) -
+            priorityOrder.indexOf(b.priority)
+    );
+
     return (
         <ul className="todo-list">
-            {visibleTodos.map((todo: Todo) => (
+            {sorted.map((todo: Todo) => (
                 <TodoItem
                     key={todo.id}
                     todo={todo}
