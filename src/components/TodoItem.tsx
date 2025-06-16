@@ -42,6 +42,10 @@ export default function TodoItem({
                     checked={todo.completed}
                 />
                 <label onDoubleClick={onDoubleClickLabel}>{todo.title}</label>
+                <span className={`priority-badge ${todo.priority}`}>
+                    {todo.priority.charAt(0).toUpperCase() +
+                        todo.priority.slice(1)}
+                </span>
                 <button className="destroy" onClick={() => onDelete()} />
             </div>
             <InputEdit
