@@ -7,6 +7,7 @@ import {
     deleteTodo,
     startEditTodo,
     setTitleTodo,
+    updateDueDate,
 } from "src/redux/slices/todoSlice";
 
 export default function TodoList() {
@@ -39,6 +40,9 @@ export default function TodoList() {
                     onEdit={() => dispatch(startEditTodo(todo.id))}
                     onSetTitle={(title) =>
                         dispatch(setTitleTodo({ id: todo.id, title }))
+                    }
+                    onChangeDueDate={(date) =>
+                        dispatch(updateDueDate({ id: todo.id, dueDate: date }))
                     }
                 />
             ))}
