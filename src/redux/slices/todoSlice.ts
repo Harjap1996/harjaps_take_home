@@ -11,6 +11,11 @@ interface UpdatePriorityPayload {
     priority: Priority;
 }
 
+interface UpdateDueDatePayload {
+    id: string;
+    dueDate: string;
+}
+
 const todoSlice = createSlice({
     name: "todos",
     initialState: [] as Todo[],
@@ -57,6 +62,10 @@ const todoSlice = createSlice({
             const todo = state.find((item) => item.id === action.payload.id);
             if (todo) todo.priority = action.payload.priority;
         },
+        updateDueDate: (state, action: PayloadAction<UpdateDueDatePayload>) => {
+            const todo = state.find((t) => t.id === action.payload.id);
+            if (todo) todo.dueDate = action.payload.dueDate;
+        },
     },
 });
 
@@ -70,5 +79,6 @@ export const {
     markAllCompleted,
     markAllActive,
     updatePriority,
+    updateDueDate,
 } = todoSlice.actions;
 export const todoReducer = todoSlice.reducer;
