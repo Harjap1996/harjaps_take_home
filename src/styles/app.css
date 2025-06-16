@@ -351,6 +351,53 @@ html .clear-completed:active {
   text-decoration: underline;
 }
 
+.new-todo-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.priority-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.priority-button {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.priority-button:hover {
+  background-color: #f5f5f5;
+}
+
+.priority-button.selected {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
+.priority-badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+.priority-badge.low {
+  background: #d3f9d8;
+}
+.priority-badge.medium {
+  background: #ffe8a1;
+}
+.priority-badge.high {
+  background: #ffc9c9;
+}
+
 /*
 	Hack to remove background from Mobile Safari.
 	Can't use it globally since it destroys checkboxes in Firefox
