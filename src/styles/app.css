@@ -358,6 +358,13 @@ html .clear-completed:active {
   margin-bottom: 16px;
 }
 
+.new-todo-input > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px; /* space between buttons row and date picker */
+}
+
 .priority-buttons {
   display: flex;
   gap: 4px;
@@ -378,8 +385,8 @@ html .clear-completed:active {
 }
 
 .priority-button.selected {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #b83f45;
+  border-color: #b83f45;
   color: #fff;
 }
 
@@ -396,6 +403,30 @@ html .clear-completed:active {
 }
 .priority-badge.high {
   background: #ffc9c9;
+}
+
+.due-date-text {
+  margin-left: 8px;
+  font-size: 0.85rem;
+  color: #888;
+  cursor: pointer;
+  user-select: none;
+}
+
+.due-date-text:hover {
+  color: #555;
+}
+
+.due-date-input {
+  margin: auto;
+  margin-top: 8px;
+  padding: 2px 4px;
+  font-size: 0.85rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #111;
+  width: auto;
 }
 
 /*
