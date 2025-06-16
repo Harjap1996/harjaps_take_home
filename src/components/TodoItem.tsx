@@ -1,3 +1,4 @@
+import React, { useState, ChangeEvent, MouseEvent } from "react";
 import clsx from "clsx";
 import { Todo } from "src/models/todo";
 
@@ -9,6 +10,7 @@ interface Props {
     onDelete: () => void;
     onToggleComplete: () => void;
     onSetTitle: (title: string) => void;
+    onChangeDueDate: (date: string) => void;
 }
 
 export default function TodoItem({
@@ -17,12 +19,15 @@ export default function TodoItem({
     onDelete,
     onToggleComplete,
     onSetTitle,
+    onChangeDueDate,
 }: Props) {
-    const onChangeCheckbox = (_: React.ChangeEvent<HTMLInputElement>) => {
+    const [isEditingDate, setIsEditingDate] = useState(false);
+
+    const onChangeCheckbox = (_: ChangeEvent<HTMLInputElement>) => {
         onToggleComplete();
     };
 
-    const onDoubleClickLabel = (_: React.MouseEvent<HTMLLabelElement>) => {
+    const onDoubleClickLabel = (_: MouseEvent<HTMLLabelElement>) => {
         onEdit();
     };
 
@@ -46,6 +51,30 @@ export default function TodoItem({
                     {todo.priority.charAt(0).toUpperCase() +
                         todo.priority.slice(1)}
                 </span>
+
+                {todo.dueDate &&
+                    (isEditingDate ? (
+                        <input
+                            type="date"
+                            value={todo.dueDate}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                onChangeDueDate(e.target.value)
+                            }
+                            onBlur={() => setIsEditingDate(false)}
+                            autoFocus
+                            className="due-date-input"
+                        />
+                    ) : (
+                        <span
+                            className="due-date-text"
+                            onDoubleClick={(e: MouseEvent) => {
+                                e.stopPropagation();
+                                setIsEditingDate(true);
+                            }}
+                        >
+                            {new Date(todo.dueDate).toLocaleDateString()}
+                        </span>
+                    ))}
                 <button className="destroy" onClick={() => onDelete()} />
             </div>
             <InputEdit
