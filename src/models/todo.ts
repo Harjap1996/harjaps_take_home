@@ -5,4 +5,5 @@ export interface Todo {
     editing: boolean;
     completed: boolean;
     priority: Priority;
+    dueDate?: string;
 }
